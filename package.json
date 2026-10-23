@@ -1,5 +1,5 @@
 {
-  "name": "@local/task-plugin-scout",
+  "name": "dsh-task-plugin-scout",
   "version": "1.0.0",
   "private": true,
   "type": "module",

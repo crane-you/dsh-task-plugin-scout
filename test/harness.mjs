@@ -1,8 +1,8 @@
 /**
- * Pre-install harness for @local/task-plugin-scout.
+ * Pre-install harness for dsh-task-plugin-scout.
  * Loads the bundle entry, mounts it on a fake context, and runs `plugin_scout`
  * against fixture inventories so the ranking and next steps are checked before installation.
- * Lives outside the package directory on purpose.
+ * Lives under test/ and is not part of the shipped plugin.
  */
 import { apply, inject, name } from '../index.js';
 

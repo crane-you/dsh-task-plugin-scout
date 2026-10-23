@@ -9,7 +9,7 @@
 它就把本机的插件——**已启用**、**已安装但未启用**、**可从已配置的插件市场索引安装**——排序，并给出每个候选的
 确切下一步：启用、安装，或什么都不用做。
 
-- 包名：`@local/task-plugin-scout`　装载行：`task-plugin-scout`
+- 包名：`dsh-task-plugin-scout`　装载行：`dsh-task-plugin-scout`
 - Host-only bundle：零依赖、零构建，纯 ESM JavaScript
 - 它自己不改动任何状态：只**建议**，启用/安装仍走 `plugin_manager` 并需要用户批准
 

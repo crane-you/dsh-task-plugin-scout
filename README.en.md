@@ -10,7 +10,7 @@ to use it. Given a one-line task description it ranks this profile's plugins —
 but disabled**, and **installable from the configured market indexes** — and returns the exact next step for
 each candidate (enable, install, or nothing).
 
-- Package: `@local/task-plugin-scout` · loader row: `task-plugin-scout`
+- Package: `dsh-task-plugin-scout` · loader row: `dsh-task-plugin-scout`
 - Host-only bundle: no dependencies, no build step, plain ESM JavaScript
 - Changes nobody's state by itself: it only *recommends*; enabling or installing still goes through
   `plugin_manager` and the user's approval

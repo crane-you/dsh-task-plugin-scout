@@ -1,5 +1,5 @@
 /**
- * Task Plugin Scout — Host half of the `@local/task-plugin-scout` bundle.
+ * Task Plugin Scout — Host half of the `dsh-task-plugin-scout` bundle.
  *
  * Registers one model-facing tool, `plugin_scout`, that answers a single question: "which plugins
  * would make this task easier?". It reads the live plugin inventory (bundles, plugin rows) and the
@@ -11,7 +11,7 @@
  * `ctx.effect`, and reads the inventory through services it declares in `inject` (or resolves
  * optionally, for the market).
  *
- * @module @local/task-plugin-scout
+ * @module dsh-task-plugin-scout
  */
 
 /** Model-facing tool name. */
@@ -610,5 +610,5 @@ export function apply(ctx, config) {
   }
 }
 
-export const name = 'task-plugin-scout';
+export const name = 'dsh-task-plugin-scout';
 export const inject = ['tools', 'systemPrompt'];

@@ -1,4 +1,4 @@
-# Task Plugin Scout
+# dsh-task-plugin-scout
 
 **English** | [中文](README.md)
 
@@ -141,11 +141,13 @@ The plugin is published to npm, so market indexes pick it up automatically. The 
 maintains an own format-1 index that can be added to the Discover tab by hand:
 
 ```
-https://cdn.jsdelivr.net/gh/crane-you/dsh-market-index@main/index.json
+https://cdn.jsdelivr.net/npm/dsh-market-index@1/index.json
 ```
 
-Settings → Plugins → **Discover** → add index, paste the URL above. Index source and notes:
-[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index).
+Settings → Plugins → **Discover** → add index, paste the URL above. Index source:
+[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index); it is delivered by the npm data package
+[`dsh-market-index`](https://www.npmjs.com/package/dsh-market-index), because jsDelivr caches GitHub branch URLs for
+12 hours while the npm-backed CDN picks up index changes within minutes.
 
 ## License
 

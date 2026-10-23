@@ -1,6 +1,6 @@
 {
   "name": "dsh-task-plugin-scout",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Find the plugins that make a task easier: ranks this DSH profile's installed, disabled and marketplace plugins for the task at hand. · 任务插件参谋：按任务排序本机插件并给出下一步。",
   "type": "module",
   "license": "MIT",

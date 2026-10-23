@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Task Plugin Scout",
+    "title": "dsh-task-plugin-scout",
     "description": "Ranks this profile's plugins — active, installed but disabled, and installable — against the task at hand, and reports the exact enable or install step for each candidate."
   }
 }

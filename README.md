@@ -1,4 +1,4 @@
-# 任务插件参谋 · Task Plugin Scout
+# dsh-task-plugin-scout
 
 [English](README.en.md) | **中文**
 
@@ -127,11 +127,13 @@ node test/harness.mjs
 插件已发布到 npm，市场索引会自动收录它；此外本仓库作者还维护一份自有索引（format 1），可手动加入「发现」页：
 
 ```
-https://cdn.jsdelivr.net/gh/crane-you/dsh-market-index@main/index.json
+https://cdn.jsdelivr.net/npm/dsh-market-index@1/index.json
 ```
 
-DSH → 设置 → 插件 → **发现** → 添加索引，粘贴上面的地址即可。索引源码与说明见
-[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index)。
+DSH → 设置 → 插件 → **发现** → 添加索引，粘贴上面的地址即可。索引源码见
+[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index)，分发副本是 npm 数据包
+[`dsh-market-index`](https://www.npmjs.com/package/dsh-market-index) —— jsDelivr 对 GitHub 分支地址缓存 12 小时，
+走 npm 回源的 CDN 才能让索引改动及时生效。
 
 ## 许可证
 

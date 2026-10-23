@@ -26,7 +26,14 @@ const MAX_LIMIT = 12;
 /** Market reads: two indexes at most, read concurrently so one slow index cannot delay the other. */
 const MARKET_INDEX_LIMIT = 2;
 const MARKET_PAGE_LIMIT = 60;
-const MARKET_TIMEOUT_MS = 10000;
+/**
+ * Per-index wait. A cold read is not just a download: the market service fetches the document (its own
+ * deadline is 15 s), validates it, and builds the in-memory text index before it answers. Measured here,
+ * dshmarket's 2.2 MiB catalog downloads in ~6-8 s and the npm-discovered 9 MiB index in ~4-6 s, so a 10 s
+ * cap cut off reads that would have succeeded; the service caches the document for its TTL afterwards, so
+ * this cost is paid once per index per TTL.
+ */
+const MARKET_TIMEOUT_MS = 20000;
 /** Candidate text is truncated to keep the tool result small. */
 const TEXT_LIMIT = 200;
 

@@ -1,6 +1,6 @@
 {
   "name": "dsh-task-plugin-scout",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Find the plugins that make a task easier — a DeepSeek Harness (DSH) plugin that ranks this profile's installed, disabled and marketplace plugins for the task at hand and prints the exact next step for each. · 按任务排序本机插件（已启用 / 未启用 / 市场可安装）并给出下一步。",
   "type": "module",
   "license": "MIT",
@@ -27,8 +27,15 @@
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
-  "files": ["index.js", "cordis.patch.yml", "locale/*.json", "icon.svg"],
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
   "dsh": {
-    "bundle": { "patch": "./cordis.patch.yml" }
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   }
 }

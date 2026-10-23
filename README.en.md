@@ -135,19 +135,22 @@ argument handling, error handling, and the config path — no DSH required:
 node test/harness.mjs
 ```
 
-## Market index
+## Plugin market
 
-The plugin is published to npm, so market indexes pick it up automatically. The repository owner also
-maintains an own format-1 index that can be added to the Discover tab by hand:
+The plugin is published to npm, so indexes built from npm metadata pick it up automatically. To search the whole
+community catalog from DSH's Discover tab, add **dshmarket's community catalog**, which it also publishes as a
+format-1 index (the same data its own UI shows):
 
 ```
-https://cdn.jsdelivr.net/npm/dsh-market-index@1/index.json
+https://cdn.jsdelivr.net/npm/dsh-plugin-catalog/index.json
 ```
 
-Settings → Plugins → **Discover** → add index, paste the URL above. Index source:
-[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index); it is delivered by the npm data package
-[`dsh-market-index`](https://www.npmjs.com/package/dsh-market-index), because jsDelivr caches GitHub branch URLs for
-12 hours while the npm-backed CDN picks up index changes within minutes.
+Settings → Plugins → **Discover** → add index, paste the URL above.
+
+> That document is about 2.2 MiB: on some networks it exceeds the 15-second budget DSH gives one index source. In that
+> case a **version-pinned** CDN URL is far faster — unpkg serves exact versions only, e.g.
+> `https://unpkg.com/dsh-plugin-catalog@<version>/index.json`, with the version from `npm view dsh-plugin-catalog version`
+> (the catalog is rebuilt daily, so the version changes).
 
 ## License
 

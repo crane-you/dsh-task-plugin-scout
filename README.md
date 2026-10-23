@@ -2,6 +2,8 @@
 
 [English](README.en.md) | **中文**
 
+[![npm version](https://img.shields.io/npm/v/dsh-task-plugin-scout.svg)](https://www.npmjs.com/package/dsh-task-plugin-scout) [![license](https://img.shields.io/npm/l/dsh-task-plugin-scout.svg)](LICENSE)
+
 一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）插件，只回答一个问题：
 **动手之前，这个 profile 里已经有哪些插件能让当前任务更省力？**
 
@@ -45,12 +47,17 @@ Coverage: 3 of the listed candidates need an action to take effect · 48 bundles
 需要 profile 里有 `plugin-manager`（官方 profile 默认带）。用 `plugin_manager` 工具：
 
 ```jsonc
-// 从 Git 安装（本仓库公开后）
+// ① 从 npm 安装（推荐）
+{ "action": "install_bundle", "target": "dsh-task-plugin-scout" }
+
+// ② 从 Git 安装
 { "action": "install_bundle", "target": "git+https://github.com/crane-you/dsh-task-plugin-scout.git" }
 
-// 从本地目录安装（指向包目录的绝对路径）
+// ③ 从本地目录安装（指向包目录的绝对路径）
 { "action": "install_bundle", "target": "D:\\path\\to\\task-plugin-scout" }
 ```
+
+npm 页面：https://www.npmjs.com/package/dsh-task-plugin-scout （也可以 `npm i dsh-task-plugin-scout`）。
 
 安装成功的判据是返回里的 `application: applied`；要确认能力真的可用，用 `cordis_inspect_query`
 （`Tool.listTools` 里应出现 `plugin_scout`），而不是看日志。
@@ -114,6 +121,17 @@ Coverage: 3 of the listed candidates need an action to take effect · 48 bundles
 ```bash
 node test/harness.mjs
 ```
+
+## 市场索引
+
+插件已发布到 npm，市场索引会自动收录它；此外本仓库作者还维护一份自有索引（format 1），可手动加入「发现」页：
+
+```
+https://cdn.jsdelivr.net/gh/crane-you/dsh-market-index@main/index.json
+```
+
+DSH → 设置 → 插件 → **发现** → 添加索引，粘贴上面的地址即可。索引源码与说明见
+[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index)。
 
 ## 许可证
 

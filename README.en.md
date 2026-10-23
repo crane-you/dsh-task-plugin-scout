@@ -2,6 +2,8 @@
 
 **English** | [中文](README.md)
 
+[![npm version](https://img.shields.io/npm/v/dsh-task-plugin-scout.svg)](https://www.npmjs.com/package/dsh-task-plugin-scout) [![license](https://img.shields.io/npm/l/dsh-task-plugin-scout.svg)](LICENSE)
+
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (DSH) plugin that answers one question
 before work starts: **which plugins already available to this profile would make the task at hand easier?**
 
@@ -47,12 +49,17 @@ Coverage: 3 of the listed candidates need an action to take effect · 48 bundles
 DSH must have `plugin-manager` (standard in shipped profiles). Use the `plugin_manager` tool:
 
 ```jsonc
-// from Git (after this repository is public)
+// 1. from npm (recommended)
+{ "action": "install_bundle", "target": "dsh-task-plugin-scout" }
+
+// 2. from Git
 { "action": "install_bundle", "target": "git+https://github.com/crane-you/dsh-task-plugin-scout.git" }
 
-// from a local checkout (absolute path to the package directory)
+// 3. from a local checkout (absolute path to the package directory)
 { "action": "install_bundle", "target": "D:\\path\\to\\task-plugin-scout" }
 ```
+
+npm page: https://www.npmjs.com/package/dsh-task-plugin-scout (or `npm i dsh-task-plugin-scout`).
 
 Activation is reported as `application: applied`. Confirm with `cordis_inspect_query`
 (`Tool.listTools` should list `plugin_scout`) rather than by reading logs.
@@ -127,6 +134,18 @@ argument handling, error handling, and the config path — no DSH required:
 ```bash
 node test/harness.mjs
 ```
+
+## Market index
+
+The plugin is published to npm, so market indexes pick it up automatically. The repository owner also
+maintains an own format-1 index that can be added to the Discover tab by hand:
+
+```
+https://cdn.jsdelivr.net/gh/crane-you/dsh-market-index@main/index.json
+```
+
+Settings → Plugins → **Discover** → add index, paste the URL above. Index source and notes:
+[crane-you/dsh-market-index](https://github.com/crane-you/dsh-market-index).
 
 ## License
 

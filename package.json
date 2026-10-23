@@ -1,9 +1,27 @@
 {
   "name": "dsh-task-plugin-scout",
   "version": "1.0.0",
-  "private": true,
+  "description": "Find the plugins that make a task easier: ranks this DSH profile's installed, disabled and marketplace plugins for the task at hand. · 任务插件参谋：按任务排序本机插件并给出下一步。",
   "type": "module",
-  "description": "Finds the plugins that make the task at hand easier, and reports the exact enable or install step for each.",
+  "license": "MIT",
+  "author": "crane-you",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "cordis",
+    "plugin-manager",
+    "plugin-discovery",
+    "agent-tools"
+  ],
+  "homepage": "https://github.com/crane-you/dsh-task-plugin-scout#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crane-you/dsh-task-plugin-scout.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crane-you/dsh-task-plugin-scout/issues"
+  },
   "exports": {
     ".": "./index.js",
     "./locale/*.json": "./locale/*.json",

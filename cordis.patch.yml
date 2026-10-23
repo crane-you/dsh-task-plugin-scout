@@ -1,0 +1,3 @@
+- insert:
+    - id: task-plugin-scout
+      name: '@local/task-plugin-scout'

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Task Plugin Scout">
+  <title>Task Plugin Scout</title>
+  <rect x="3" y="3" width="58" height="58" rx="15" fill="#0F4C5C"/>
+  <path d="M36.5 35.5 L51 50" stroke="#EAF2EF" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <circle cx="27" cy="26" r="14.5" fill="#EAF2EF"/>
+  <g fill="#0F4C5C">
+    <rect x="19.5" y="18.5" width="7.5" height="7.5" rx="2.2"/>
+    <rect x="28.5" y="18.5" width="7.5" height="7.5" rx="2.2"/>
+    <rect x="19.5" y="27.5" width="7.5" height="7.5" rx="2.2"/>
+  </g>
+  <rect x="28.5" y="27.5" width="7.5" height="7.5" rx="2.2" fill="#F2A65A"/>
+</svg>

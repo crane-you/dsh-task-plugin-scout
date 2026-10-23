@@ -1,0 +1,16 @@
+{
+  "name": "@local/task-plugin-scout",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Finds the plugins that make the task at hand easier, and reports the exact enable or install step for each.",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": ["index.js", "cordis.patch.yml", "locale/*.json", "icon.svg"],
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" }
+  }
+}

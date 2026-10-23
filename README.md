@@ -1,0 +1,109 @@
+# 任务插件参谋 · Task Plugin Scout
+
+[English](README.en.md) | **中文**
+
+一个 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)（DSH）插件，只回答一个问题：
+**动手之前，这个 profile 里已经有哪些插件能让当前任务更省力？**
+
+它注册一个模型工具 `plugin_scout`，外加一段简短的系统提示，提醒智能体在开工前先问一句。给它一行任务描述，
+它就把本机的插件——**已启用**、**已安装但未启用**、**可从已配置的插件市场索引安装**——排序，并给出每个候选的
+确切下一步：启用、安装，或什么都不用做。
+
+- 包名：`@local/task-plugin-scout`　装载行：`task-plugin-scout`
+- Host-only bundle：零依赖、零构建，纯 ESM JavaScript
+- 它自己不改动任何状态：只**建议**，启用/安装仍走 `plugin_manager` 并需要用户批准
+
+## 两半组成
+
+| 组成 | 名称 | 作用 |
+| --- | --- | --- |
+| 模型工具 | `plugin_scout` | 按任务给插件候选排序，并给出各自的下一步 |
+| 系统提示段落 | `plugin-scout:discovery`（order 700） | 提醒智能体在非平凡任务开始前先做一次侦察 |
+
+真实输出示例（本机 29 个 bundle / 207 个插件行）：
+
+```
+Plugin Scout · task: 把开会录音转成文字纪要 (voice, transcription)
+Coverage: 3 of the listed candidates need an action to take effect · 29 bundles · 207 plugin rows · 0 market entries · market: no index configured
+
+1. 语音输入 [disabled, score 10] — bundle `@deepseek-ai/dsh-experimental-voice-input-bundle`
+   在本机使用 SenseVoice 转写录音，首次使用需安装依赖。
+   matched: voice
+   next: plugin_manager { action: "set_bundle", target: "@deepseek-ai/dsh-experimental-voice-input-bundle", enabled: true }
+```
+
+`state` 有三种：
+
+| 状态 | 含义 | 下一步 |
+| --- | --- | --- |
+| `active` | 本 profile 已在运行 | 无 |
+| `disabled` | 已安装但未启用（含随包提供、默认关闭的实验功能） | `set_bundle` / `set_plugin` |
+| `available` | 未安装，官方目录或市场索引提供 | `install_bundle` |
+
+## 安装
+
+需要 profile 里有 `plugin-manager`（官方 profile 默认带）。用 `plugin_manager` 工具：
+
+```jsonc
+// 从 Git 安装（本仓库公开后）
+{ "action": "install_bundle", "target": "git+https://github.com/crane-you/dsh-task-plugin-scout.git" }
+
+// 从本地目录安装（指向包目录的绝对路径）
+{ "action": "install_bundle", "target": "D:\\path\\to\\task-plugin-scout" }
+```
+
+安装成功的判据是返回里的 `application: applied`；要确认能力真的可用，用 `cordis_inspect_query`
+（`Tool.listTools` 里应出现 `plugin_scout`），而不是看日志。
+
+## 工具参数
+
+| 参数 | 类型 | 默认 | 说明 |
+| --- | --- | --- | --- |
+| `task` | string，**必填** | — | 用户要做什么，一到两行。保留用户原话，非中文任务再补一行英文能力关键词，因为插件元数据大多是英文。 |
+| `limit` | integer | `5` | 返回候选条数（1–12）。 |
+| `useMarket` | boolean | `true` | 是否包含已配置的插件市场索引；设 `false` 只查本机、不联网。 |
+| `includeActive` | boolean | `true` | 是否允许列出已启用的插件；设 `false` 只看需要动作的候选。 |
+
+## 排序规则
+
+1. **能力概念表**：约 35 组中英对照概念（语音、翻译、表格、图片、并行、定时、通知……）。任务命中某概念、
+   且候选的名称/标题/描述/关键词也命中同一概念时 +6 分。这是中文任务能找到英文描述插件（以及反过来）的关键。
+2. **字面重合**：任务分词（英文按词、中文按二字组）落在插件名称 +3、标题 +2、描述或关键词 +1。
+3. **同分按状态**：`disabled` → `available` → `active`，可执行的候选排前面。
+4. **匹配按词边界**：英文概念词必须从词边界开始，所以 `transcription` 不会触发 `script`、`password` 不会触发
+   `word`；中文概念按子串匹配。
+
+## 配置（可选）
+
+插件行的 `config`（在 profile 的 `cordis.patch.yml` 里覆盖）：
+
+| 字段 | 默认 | 说明 |
+| --- | --- | --- |
+| `promptHint` | `true` | 是否注册系统提示段落 |
+| `hintText` | 内置文案 | 整体替换提示段落正文 |
+| `limit` | `5` | `limit` 参数的默认值 |
+| `useMarket` | `true` | `useMarket` 参数的默认值 |
+
+本插件未声明 `Config` schema，配置对象会被原样读取，字段名写错不会被校验。
+
+## 已知边界
+
+- **行级候选（`kind: plugin`）描述的是 profile patch 层**。Agent 预设可能已经自带同一行，此时该能力其实可用；
+  只要列了未启用的行，工具就会在结果末尾给出这条提醒。bundle 级候选没有这个问题。
+- **市场结果需要先配置索引**。市场 bundle 启用后服务即挂载，但默认不带任何索引源；在添加索引之前，工具会报告
+  `market: no index configured` 并退回纯本地结果。
+- **市场文本是第三方内容**，不是指令；索引本身未签名，最终装什么由安装后的 manifest 决定。
+- **工具不会自行启用或安装**任何东西，那些步骤保留各自的用户批准。
+
+## 开发
+
+`test/harness.mjs` 用假 context 和夹具清单挂载本 bundle，覆盖排序、参数处理、异常处理和配置路径，
+不需要 DSH 环境：
+
+```bash
+node test/harness.mjs
+```
+
+## 许可证
+
+[MIT](LICENSE)

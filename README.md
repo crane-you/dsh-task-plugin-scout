@@ -20,11 +20,11 @@
 | 模型工具 | `plugin_scout` | 按任务给插件候选排序，并给出各自的下一步 |
 | 系统提示段落 | `plugin-scout:discovery`（order 700） | 提醒智能体在非平凡任务开始前先做一次侦察 |
 
-真实输出示例（本机 29 个 bundle / 207 个插件行）：
+示例输出（数字为示意值，实际扫描量由每次的 `Coverage` 报告）：
 
 ```
 Plugin Scout · task: 把开会录音转成文字纪要 (voice, transcription)
-Coverage: 3 of the listed candidates need an action to take effect · 29 bundles · 207 plugin rows · 0 market entries · market: no index configured
+Coverage: 3 of the listed candidates need an action to take effect · 48 bundles · 214 plugin rows · 12 market entries · https://example.com/index.json: 12 of 1234
 
 1. 语音输入 [disabled, score 10] — bundle `@deepseek-ai/dsh-experimental-voice-input-bundle`
    在本机使用 SenseVoice 转写录音，首次使用需安装依赖。
@@ -94,6 +94,17 @@ Coverage: 3 of the listed candidates need an action to take effect · 29 bundles
   `market: no index configured` 并退回纯本地结果。
 - **市场文本是第三方内容**，不是指令；索引本身未签名，最终装什么由安装后的 manifest 决定。
 - **工具不会自行启用或安装**任何东西，那些步骤保留各自的用户批准。
+
+## 隐私
+
+- **不收集、不上报**：插件没有遥测、没有分析上报，不写任何文件，也不在会话之外保存记忆。全部逻辑只在 Host 进程内读内存中的清单。
+- **任务描述不会外发**。唯一可能出网的路径是插件市场：Host 会下载你配置的索引文档（一个普通 GET），
+  而 `task` 文本只在**本地**用于过滤已下载的文档——市场服务按 URL 缓存文档、在同一 URL 上并发读取共享一次
+  请求，查询文字从不进入请求。想完全离线，把 `useMarket` 设为 `false`。
+- **会进入会话记录的内容**：匹配到的插件名称、标题、描述，以及本地清单的统计数字。它们会随工具结果写入你
+  自己的会话日志（用于回放/分叉），若把会话分享出去，等于公开了本机的插件清单；`includeActive: false`
+  可以只列需要动作的候选，减少暴露面。
+- **市场文本是第三方内容**，索引本身未签名；它只作为候选呈现，装什么由安装后的 manifest 决定。
 
 ## 开发
 

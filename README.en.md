@@ -22,11 +22,11 @@ each candidate (enable, install, or nothing).
 | Model tool | `plugin_scout` | Ranks plugin candidates for a task and returns each one's next step |
 | Prompt section | `plugin-scout:discovery` (order 700) | Tells the agent to scout before starting non-trivial work |
 
-Example result (real profile: 29 bundles, 207 plugin rows):
+Example result (numbers are illustrative; each run reports its own `Coverage`):
 
 ```
 Plugin Scout · task: 把开会录音转成文字纪要 (voice, transcription)
-Coverage: 3 of the listed candidates need an action to take effect · 29 bundles · 207 plugin rows · 0 market entries · market: no index configured
+Coverage: 3 of the listed candidates need an action to take effect · 48 bundles · 214 plugin rows · 12 market entries · https://example.com/index.json: 12 of 1234
 
 1. 语音输入 [disabled, score 10] — bundle `@deepseek-ai/dsh-experimental-voice-input-bundle`
    在本机使用 SenseVoice 转写录音，首次使用需安装依赖。
@@ -102,6 +102,22 @@ The plugin declares no `Config` schema, so the object is read as-is and a misspe
 - **Market text is third-party content**, not instructions, and indexes are unsigned — the installed manifest
   decides what actually installs.
 - **The tool never enables or installs anything** on its own; those steps keep their own approval.
+
+## Privacy
+
+- **Nothing is collected or reported.** No telemetry, no analytics, no files written, no memory kept outside
+  the session. All work happens in the Host process against in-memory inventories.
+- **The task description never leaves the machine.** The only outbound path is the plugin market: the Host
+  downloads the index documents you configured (a plain GET), and `task` is used **locally** to filter the
+  already-downloaded document — the market service caches a document per URL, shares one fetch between
+  concurrent readers of that URL, and never puts query text into a request. Set `useMarket: false` for a
+  fully offline run.
+- **What enters the session log**: matched plugin names, titles and descriptions, plus the local inventory
+  counts. They are recorded with the tool result in your own session log (for replay and fork); sharing that
+  transcript would disclose your installed-plugin list. `includeActive: false` narrows the result to
+  candidates that need an action.
+- **Market text is third-party content** and indexes are unsigned; it is presented as a candidate only, and
+  the installed manifest decides what actually installs.
 
 ## Development
 

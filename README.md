@@ -44,7 +44,7 @@ Coverage: 3 of the listed candidates need an action to take effect · 48 bundles
 
 ## 安装
 
-需要 profile 里有 `plugin-manager`（官方 profile 默认带）。用 `plugin_manager` 工具：
+需要 profile 里有 `plugin-manager`（官方 profile 默认带），并要求 **DSH ≥ 0.2.0**（见 `package.json` 的 `engines.dsh`；本插件在 `0.2.1-rc.2` 上开发与测试）。用 `plugin_manager` 工具：
 
 ```jsonc
 // ① 从 npm 安装（推荐）

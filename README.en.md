@@ -46,7 +46,8 @@ Coverage: 3 of the listed candidates need an action to take effect · 48 bundles
 
 ## Install
 
-DSH must have `plugin-manager` (standard in shipped profiles). Use the `plugin_manager` tool:
+DSH must have `plugin-manager` (standard in shipped profiles), and **DSH ≥ 0.2.0** is required (see
+`engines.dsh` in `package.json`; developed and tested on `0.2.1-rc.2`). Use the `plugin_manager` tool:
 
 ```jsonc
 // 1. from npm (recommended)

@@ -1,10 +1,13 @@
 {
   "name": "dsh-task-plugin-scout",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Find the plugins that make a task easier — a DeepSeek Harness (DSH) plugin that ranks this profile's installed, disabled and marketplace plugins for the task at hand and prints the exact next step for each. · 按任务排序本机插件（已启用 / 未启用 / 市场可安装）并给出下一步。",
   "type": "module",
   "license": "MIT",
   "author": "crane-you",
+  "engines": {
+    "dsh": ">=0.2.0"
+  },
   "keywords": [
     "dsh",
     "deepseek-harness",
